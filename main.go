@@ -1,15 +1,12 @@
-//go:build ignore
-// +build ignore
-
 package main
 
 import (
-        "fmt"
-        "math/big"
+	"fmt"
+	"math/big"
 
-        "github.com/btcsuite/btcd/btcutil"
-        "github.com/btcsuite/btcd/btcec/v2"
-        "github.com/btcsuite/btcd/chaincfg/chainhash"
+	"github.com/btcsuite/btcd/btcutil"
+	"github.com/btcsuite/btcd/btcec/v2"
+	"github.com/btcsuite/btcd/chaincfg/chainhash"
 )
 
 func main() {
@@ -31,15 +28,17 @@ func main() {
 		copy(padded[32-len(count.Bytes()):], count.Bytes())
 
 		// Get public key
-		_, public := btcec.PrivKeyFromBytes(btcec.S256(), padded)
+		privKey, _ := btcec.PrivKeyFromBytes(btcec.S256(), padded)
+		pubKey := privKey.PubKey()
 
 		// Get compressed and uncompressed addresses
-		caddr, _ := btcutil.NewAddressPubKey(public.SerializeCompressed(), &chaincfg.MainNetParams)
-		uaddr, _ := btcutil.NewAddressPubKey(public.SerializeUncompressed(), &chaincfg.MainNetParams)
+		caddr, _ := btcutil.NewAddressPubKey(pubKey.SerializeCompressed(), &chaincfg.MainNetParams)
+		uaddr, _ := btcutil.NewAddressPubKey(pubKey.SerializeUncompressed(), &chaincfg.MainNetParams)
 
 		// Print keys
 		fmt.Printf("%x %34s %34s\n", padded, uaddr.EncodeAddress(), caddr.EncodeAddress())
 	}
 }
+
 
 
