@@ -1,12 +1,15 @@
+//go:build ignore
+// +build ignore
+
 package main
 
 import (
-	"fmt"
-	"math/big"
+        "fmt"
+        "math/big"
 
-	"github.com/btcsuite/btcd/btcutil"
-	"github.com/btcsuite/btcd/btcec/v2"
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
+        "github.com/btcsuite/btcd/btcutil"
+        "github.com/btcsuite/btcd/btcec/v2"
+        "github.com/btcsuite/btcd/chaincfg/chainhash"
 )
 
 func main() {
